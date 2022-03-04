@@ -1,3 +1,8 @@
+<?php
+    include "hoja_vida.php";
+
+?>
+
 <!-- ASIGNACION INICIO-->
     <div class="modal fade" id="asignacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="asignacion" aria-hidden="true">
             <div class="modal-dialog">
@@ -61,11 +66,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="mantenimeinto">AGREGAR MANTENIMIENTO</h5>
+                       
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="../fx/mantenimentos.php" method="post">
                         <!-- Fecha de asignacion -->
-                        
+                        <p><?php echo($consecutivo);?></p>
                         <div class="container">
                             <label for="fecha" class="form-label"><b>Fecha del Mantenimeinto</b></label>
                             <input type="date" class="form-control" name="fecha_Mantenimiento" id="fecha_Mantenimiento">
