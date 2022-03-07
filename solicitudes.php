@@ -118,31 +118,32 @@
 <td><?php echo $row['estado']?></td>
 <td><?php echo $row['dias_transcurridos']?></td>
 
-<td><a href="notas.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green w3-tiny w3-round" ><b>Ver Notas</b></a>
-	<br>
-	<?php 
-	if($row['estado']=="Nuevo"){
-	?>
-	<br>
-	<a href="bitacora.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green  w3-tiny w3-round" ><b>Agregar nota</b></a>
-	<br>
-<?php }else{ ?>
-		
-<?php } ?>	
-<br>
-	<?php 
-	if($row['estado'] =="Nuevo" || $row['estado'] =="Reabierto" ){
-	?>
-	<a href="fx/resuelto.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-red w3-tiny w3-round" ><b>Cambiar a resuelto</b></a>
-<?php }else{ ?>
-		<a href="fx/reabierto.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green  w3-tiny w3-round" ><b>Reabrir solicitud</b></a>
-<?php } ?>	
+<td>
+			<a href="notas.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green w3-tiny w3-round" ><b>Ver Notas</b></a>
+			<br>
+			<?php 
+			if($row['estado']=="Nuevo"){
+			?>
+			<br>
+			<a href="bitacora.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green  w3-tiny w3-round" ><b>Agregar nota</b></a>
+			<br>
+		<?php }else{ ?>
+				
+		<?php } ?>	
+		<br>
+			<?php 
+			if($row['estado'] =="Nuevo" || $row['estado'] =="Reabierto" ){
+			?>
+			<a href="fx/resuelto.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-red w3-tiny w3-round" ><b>Cambiar a resuelto</b></a>
+		<?php }else{ ?>
+			<a href="fx/reabierto.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-green  w3-tiny w3-round" ><b>Reabrir solicitud</b></a>
+		<?php } ?>	
 </td>
 
-</tr>
- <tr class='noSearch hide w3-green'>
-                <td colspan="7"></td>
-            </tr>
+		</tr>
+		<tr class='noSearch hide w3-green'>
+						<td colspan="7"></td>
+    	</tr>
 <?php } ?>
 
 <br>

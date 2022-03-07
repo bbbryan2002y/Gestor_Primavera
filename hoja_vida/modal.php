@@ -1,7 +1,3 @@
-<?php
-    include "hoja_vida.php";
-
-?>
 
 <!-- ASIGNACION INICIO-->
     <div class="modal fade" id="asignacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="asignacion" aria-hidden="true">
@@ -11,16 +7,23 @@
                         <h5 class="modal-title" id="asignacion">AGREGAR ASIGNACION</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form>
+                    <form action="../fx/asignacion_equipo.php" method="POST">
+                        <!-- id -->
+                        
+                        <!-- Consecutivo -->
+                        <div class="container">
+                            <label for="consecutivo" class="form-label"><b>Consecutivo</b></label>
+                            <input value="<?php echo($consecutivo);?>" class="form-control" name="consecutivo" id="consecutivo"> 
+                        </div>
                         <!-- Fecha de asignacion -->
                         <div class="container">
                             <label for="fecha" class="form-label"><b>Fecha de Asignacion</label>
-                            <input type="date" class="form-control" name="" id="">
+                            <input type="date" class="form-control" name="fecha_asignacion" id="fecha_asignacion">
                         </div>
                         <!-- Nombre -->
                         <div class="container">
-                            <label for="nombres" class="form-label"><b>Nombre</label>
-                            <select class="form-select form-select-sm" name="">
+                            <label for="nombre_recibe" class="form-label"><b>Nombre</label>
+                            <select class="form-select form-select-sm" name="nombre_recibe">
                                 <?php
                                     // Consuta para agregar user
                                     $resultado1= mysqli_query($conexion, "SELECT * from personas WHERE estado = 1  ORDER BY nombres ASC");  // Estado = 1 Activo";
@@ -50,7 +53,7 @@
                         </div> -->
                         <br>
                         <div class=" container d-grid gap-2 d-md-block">
-                            <button class=" container btn btn-primary" type="button">ENVIAR</button>
+                            <button class=" container btn btn-primary" type="submit">ENVIAR</button>
                         </div>
                         <br>
                     </form>         
@@ -70,8 +73,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="../fx/mantenimentos.php" method="post">
+                        <!-- cosecutivo -->
+                            <div class = "container">
+                                <label for="consecutivo" class="form-label"><b>Consecutivo</b></label>
+                                <input value="<?php echo($consecutivo);?>" class="form-control" name="consecutivo" id="consecutivo">  
+                            </div>
                         <!-- Fecha de asignacion -->
-                        <p><?php echo($consecutivo);?></p>
                         <div class="container">
                             <label for="fecha" class="form-label"><b>Fecha del Mantenimeinto</b></label>
                             <input type="date" class="form-control" name="fecha_Mantenimiento" id="fecha_Mantenimiento">

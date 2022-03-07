@@ -1,6 +1,6 @@
 <?php
   //archivo de conexion
-  $conexion=new mysqli("192.168.101.77","root","Super4825*","gestor_primavera_pruebas");
+  $conexion=new mysqli("localhost","root","","gestor_primavera_pruebas");
 
       if($conexion){
         /*

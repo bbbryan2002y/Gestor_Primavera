@@ -175,7 +175,7 @@
 <td><?php echo $row['OBSERVACIONES']?></td>
 <td><a href="reasignacion.php?id=<?php echo $row['id_matriz']; ?>" class="w3-btn w3-green w3-round-xlarge">Reasigar</a></td>
 <!-- <td><a href="fx/cambiar_estado.php?id=<?php echo $row['id_matriz']; ?>" onclick="return confirmation()" class="w3-btn w3-red w3-round-xlarge">Cambio de estado</a></td> -->
-<td><a href="hoja_vida/hoja_vida.php?id=<?php echo $row['id_matriz']; ?>" class="w3-btn w3-blue w3-round-xlarge">Hoja Vida</td> 
+<td><a href="hoja_vida/hoja_vida.php?id=<?php echo $row['consecutivo']; ?>" class="w3-btn w3-blue w3-round-xlarge">Hoja Vida</td> 
 <td>
   </td>
 

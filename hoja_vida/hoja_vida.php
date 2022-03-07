@@ -1,7 +1,6 @@
 <?php
     include ("../fx/conec.php");
-    $id = $_GET['id'];  
-
+    $consecutivo = $_GET['id'];  
     $informacion ="SELECT `id_matriz`, 
                     `consecutivo`, 
                     personas.`nombres`, 
@@ -45,13 +44,13 @@
                 INNER JOIN pantallas on matriz_inventario.id_pantalla = pantallas.id_pantalla
                 INNER JOIN office on matriz_inventario.id_office = office.id_office
                 INNER JOIN sistemas_operativos on matriz_inventario.id_so = sistemas_operativos.id_so
-                    WHERE id_matriz = $id";  
+                    WHERE consecutivo = '{$consecutivo}'";  
 
     $resultado = mysqli_query($conexion, $informacion);
     $dato = mysqli_fetch_assoc($resultado);   
     // print_r($dato);
-    
-    $consecutivo = $dato["consecutivo"];
+    // $id_matriz = $dato["id_matriz"];
+    // $consecutivo = $dato["consecutivo"];
 ?>
 
 <!-- VISTA -->
@@ -76,8 +75,8 @@
     <title>HOJA DE VIDA: <?php  echo $dato["consecutivo"];?></title>
 </head>
 <body>
-
-<div class = "container">
+<br>
+<div class = "container border border-dark">
         <!-- CABEZERA -->
         <br>
         <Table class = " container border">
@@ -256,18 +255,18 @@
                 <div >
                     <table class = "container border border-dark" >
                         <tr>
-                            <td colspan="5" style="background-color:#BDBDBD;">
+                            <td colspan="6" style="background-color:#BDBDBD;">
                                 <B>ASIGNACIONES<B>
-                            </td>    
-                            <td style="background-color:#BDBDBD";>
-                                  <!-- Button trigger modal -->
-                                  <button type= "button" class="btn btn-secondary btn-xs " data-bs-toggle="modal" data-bs-target="#asignacion" style="position: relative; left: 100px" >
-                                    <i class="bi bi-person-plus-fill" ></i>
-                                </button>
-                                <?php
+                                <span>
+                                     <!-- Button trigger modal -->
+                                    <button type= "button" class="btn btn-secondary btn-xs " data-bs-toggle="modal" data-bs-target="#asignacion"  >
+                                        <i class="bi bi-person-plus-fill" ></i>
+                                    </button>
+                                    <?php
                                   include 'modal.php';  
                                 ?>
-                            </td>
+                                </span>
+                            </td>    
                         </tr>
                         <tr class="" style="background-color:#E0E0E0;">
                             <th class="border border-dark text-center" style="width: 5rem">#</tH>
@@ -278,13 +277,50 @@
                             <th class="border border-dark text-center" style="width: 15rem"> FECHA ENTREGA</th> 
                         </tr>
                         <tr>
-                            <td class="border border-dark text-center">1</td>
-                            <td class="border border-dark text-center"> 25-02-2022 </td>
-                            <td class="border border-dark text-center"> ASD ASD </td>
-                            <td class="border border-dark text-center"> ASD ASD </td>
-                            <td class="border border-dark text-center"> ASD ASD </td>
-                            <td class="border border-dark text-center"> ASD ASD </td>
+                        <?php 
+                              $asignacion= mysqli_query($conexion, "SELECT consecutivo, 
+                                                        id_asignacion,
+                                                        fecha_recibe, 
+                                                        personas.nombres,
+                                                        personas.CEDULA,
+                                                        areas.nombre_area,
+                                                        cargos.cargo,
+                                                        fecha_entrega,
+                                                        estado_asignacion
+                                                        FROM `asignacion_equipos` 
+                                                        INNER JOIN personas ON `asignacion_equipos`.`nombre_p` = personas.id_personas
+                                                        INNER JOIN areas ON `asignacion_equipos`.`area`  = areas.idarea
+                                                        INNER JOIN cargos ON `asignacion_equipos`.`cargo`  = cargos.id_cargo
+                                                        WHERE consecutivo = '$consecutivo'");
+                                // $informacion1 = mysqli_fetch_assoc($asignacion);
+                                // print_r($informacion1);
+                                $con1 = 0;
+                                while($rows3 = mysqli_fetch_assoc($asignacion)){
+                                $con1++;
+                        ?>
+                            <td class="border border-dark text-center"><?php echo($con1);?></td>
+                            <td class="border border-dark text-center"> <?php echo($rows3["fecha_recibe"])?> </td>
+                            <td class="border border-dark text-center"> <?php echo($rows3["nombres"])?> </td>
+                            <td class="border border-dark text-center"> <?php echo($rows3["CEDULA"])?>  </td>
+                            <td class="border border-dark text-center"> <?php echo($rows3["nombre_area"])?> <b>-</b> <?php echo($rows3["cargo"])?>  </td>
+                            <td class="border border-dark text-center"> 
+                                    <?php
+                                        $estado = 0;
+                                        $estado = $rows3["estado_asignacion"];
+                                        // echo($estado); 
+                                        if($estado != 0){
+                                            echo($rows3["fecha_entrega"]);
+                                        }else{
+                                    ?>
+                                        <a class="btn btn-danger btn-sm" href="../fx/asignacion_terminar.php?id=<?php echo($rows3["id_asignacion"])?>">Terminar Contrato</a>
+                                    <?php                                            
+                                        }
+                                    ?>
+                            </td>
                         </tr>
+                        <?php
+                            }
+                        ?>
                     </table>
                 </div>
             <!-- ASIGNACIONES INICIO -->
@@ -293,11 +329,13 @@
                <div >
                     <table class = "container border border-dark" >
                         <tr>
-                            <td class = "    " colspan="4" style="background-color:#BDBDBD;">
+                            <td  colspan="4" style="background-color:#BDBDBD;">
                                 <B>MANTENIMIENTOS PREVENTIVOS Y/O CORRECTIVOS (TEI-PG-001, TEI-FT-007, TEI-FT-008)<B> 
-                                <button type="button" class="btn btn-secondary btn-xs" data-bs-toggle="modal" data-bs-target="#mantenimeinto" style="position: relative; left:33%">
-                                     <i class="bi bi-tools"></i>
-                                </button>                            
+                                <span style="left: 100px">        
+                                    <button type="button" class="btn btn-secondary btn-xs" data-bs-toggle="modal" data-bs-target="#mantenimeinto">
+                                        <i class="bi bi-tools"></i>
+                                    </button>
+                                </span>                            
                             </td>
            
                         </tr>
@@ -307,19 +345,28 @@
                             <th class="border border-dark text-center" style="width: 30rem"> NOMBRE QUIEN EJECUTA</th> 
                             <th class="border border-dark text-center" style="width: 60rem">OBSERVACIONES</th> 
                         </tr>
+                        <?php 
+                              $mantenimiento= mysqli_query($conexion, "SELECT fecha,nombre_quien_ejecuta ,observaciones FROM `mantenimientos` WHERE consecutivo = '{$consecutivo}'");
+                                $con= 0;
+                              while($rows1 = mysqli_fetch_assoc($mantenimiento)){   
+                                  $con++;
+                        ?>
                         <tr>
-                            <td class="border border-dark text-center">1</td>
-                            <td class="border border-dark text-center"> 25-02-2022 </td>
-                            <td class="border border-dark text-center"> BRYAN YESID HERREÑO VASQUEZ </td>
-                            <td class="border border-dark text-center"> La canción es una composición lírica popular de origen provenzal. Es un poema admir
-                                            ativo que expresa una emoción y que tiene por lo general tema amoroso. Llegó a España en el Renacimiento a través de la literatura italiana. </td>
-                        </tr>
+                            <td class="border border-dark text-center"><?php echo ($con);?></td>
+                            <td class="border border-dark text-center"><?php echo $rows1["fecha"];?> </td>
+                            <td class="border border-dark text-center"><?php echo $rows1["nombre_quien_ejecuta"];?></td>
+                            <td class="border border-dark text-center"><?php echo $rows1["observaciones"];?></tr>
+                        <?php
+                              }
+                        ?>
                     </table>
                 </div>
-            <!-- MANTENIMIENTOS INICIO -->
-            <br>
+            <!-- MANTENIMIENTOS Fin -->
+            
 </div>
-       
+<br>
+</div>
+<br>
 </body>
     <!--  -->
 </html>
